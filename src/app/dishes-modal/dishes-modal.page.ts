@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController, NavParams } from '@ionic/angular';
 import { Dish } from '../models/dish';
+import { DishesService } from '../services/dishes.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dishes-modal',
@@ -11,6 +13,7 @@ import { Dish } from '../models/dish';
 export class DishesModalPage implements OnInit {
   title: string;
   mode: string;
+  loading: boolean;
 
   dishForm: FormGroup;
   dish: Dish;
@@ -18,8 +21,10 @@ export class DishesModalPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
+    private alertController: AlertController,
     private formBuilder: FormBuilder,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private dishesService: DishesService
   ) {
     this.dishForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -31,15 +36,34 @@ export class DishesModalPage implements OnInit {
   }
 
   ngOnInit() {
-    this.isNew = this.navParams.get('dish');
+    this.dish = this.navParams.get('dish');
+    if (this.dish === undefined) {
+      this.isNew = 'Nuevo platillo';
+    }
+
+    this.dishForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required],
+      imageUrl: ['', Validators.required],
+    });
+
     //this.ingredients = this.navParams.get('ingredients');
 
-    if (this.mode == 'new') {
+    if (this.dish) {
+      this.dishForm.patchValue({
+        name: this.dish.name,
+        category: this.dish.category,
+        description: this.dish.category,
+        price: this.dish.price,
+        imageUrl: this.dish.imageUrl,
+      });
     } else {
     }
   }
 
-  async save() {
+  save() {
     const dish: Dish = {
       name: this.dishForm.value.name,
       category: this.dishForm.value.category,
@@ -47,7 +71,24 @@ export class DishesModalPage implements OnInit {
       price: this.dishForm.value.price,
       imageUrl: this.dishForm.value.imageUrl,
     };
-    await this.modalController.dismiss(dish);
+    this.loading = true;
+    this.dishesService.Post(dish).subscribe((response) => {
+      console.log(response);
+      this.loading = false;
+      this.presentAlert();
+      this.modalController.dismiss(dish);
+    });
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      //header: 'Éxito',
+      subHeader: 'Correcto',
+      message: 'Platillo guardado exitosamente',
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
 
   saveChanges() {}

@@ -1,34 +1,57 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ isNew ? 'New Dish' : 'Edit Dish' }}</ion-title>
+    <ion-title>{{ isNew ? 'Nuevo platillo' : 'Editar platillo' }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismiss()">Cancel</ion-button>
-      <ion-button (click)="save()">Save</ion-button>
+      <ion-button (click)="dismiss()">Cancelar</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      <ion-label position="floating">Name</ion-label>
-      <ion-input [(ngModel)]="dish.name"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Category</ion-label>
-      <ion-input [(ngModel)]="dish.category"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Description</ion-label>
-      <ion-textarea [(ngModel)]="dish.description"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Price</ion-label>
-      <ion-input [(ngModel)]="dish.price" type="number"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Image URL</ion-label>
-      <ion-input [(ngModel)]="dish.imageUrl"></ion-input>
+    <form [formGroup]="dishForm">
+      <ion-item>
+        <ion-label position="floating">Name</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Category</ion-label>
+        <ion-input formControlName="category"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-textarea formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Price</ion-label>
+        <ion-input formControlName="price" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Image URL</ion-label>
+        <ion-input formControlName="imageUrl"></ion-input>
+      </ion-item>
+    </form>
+    <ion-item *ngIf="loading">
+      <!-- <ion-label>Crescent</ion-label> -->
+      <ion-spinner id="loading" name="crescent" color="danger"></ion-spinner>
     </ion-item>
   </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          *ngIf="dish!==undefined"
+          color="danger"
+          expand="full"
+          (click)="dismiss()"
+          >Eliminar</ion-button
+        >
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary" expand="full" (click)="save()"
+          >Guardar</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

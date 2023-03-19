@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //SERVER_URL: 'http://64.226.85.242:3001/api/v1/',
+  SERVER_URL: 'http://localhost:3001/api/v1/',
+  STATIC_FILES_URL: 'http://64.226.85.242:3001/img/',
 };
 
 /*

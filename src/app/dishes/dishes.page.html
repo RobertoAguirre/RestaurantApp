@@ -21,8 +21,15 @@
       <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
     </ion-card-header> -->
     <ion-card-content>
-      <ion-list>
-        <ion-item *ngFor="let dish of filteredDishes" (click)="presentModal()">
+      <ion-item *ngIf="loading">
+        <!-- <ion-label>Crescent</ion-label> -->
+        <ion-spinner id="loading" name="crescent" color="danger"></ion-spinner>
+      </ion-item>
+      <ion-list *ngIf="dishes">
+        <ion-item
+          *ngFor="let dish of filteredDishes"
+          (click)="selectDish(dish)"
+        >
           <ion-thumbnail slot="start">
             <img
               alt="Silhouette of mountains"
@@ -35,7 +42,7 @@
     </ion-card-content>
   </ion-card>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button>
+    <ion-fab-button (click)="newDish()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
