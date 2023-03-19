@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> FoodApp </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +12,42 @@
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-card id="maincard">
+      <ion-header>
+        <ion-title><h1>Bienvenido</h1> </ion-title>
+      </ion-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button (click)="goNextPage('/dishes')" class="menubutton"
+                ><ion-icon size="large" name="fast-food-outline"></ion-icon
+                >Platillos</ion-button
+              >
+            </ion-col>
+            <ion-col>
+              <ion-button class="menubutton"
+                ><ion-icon size="large" name="people-circle-outline"></ion-icon
+                >Usuarios</ion-button
+              >
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button class="menubutton"
+                ><ion-icon size="large" name="people-circle-outline"></ion-icon
+                >Usuarios</ion-button
+              >
+            </ion-col>
+            <ion-col>
+              <ion-button class="menubutton"
+                ><ion-icon size="large" name="people-circle-outline"></ion-icon
+                >Usuarios</ion-button
+              >
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
