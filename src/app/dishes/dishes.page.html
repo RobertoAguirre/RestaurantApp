@@ -22,7 +22,7 @@
     </ion-card-header> -->
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let dish of filteredDishes">
+        <ion-item *ngFor="let dish of filteredDishes" (click)="presentModal()">
           <ion-thumbnail slot="start">
             <img
               alt="Silhouette of mountains"

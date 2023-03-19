@@ -22,6 +22,10 @@ const routes: Routes = [
     path: 'dishes',
     loadChildren: () => import('./dishes/dishes.module').then( m => m.DishesPageModule)
   },
+  {
+    path: 'dishes-modal',
+    loadChildren: () => import('./dishes-modal/dishes-modal.module').then( m => m.DishesModalPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { DishesModalPage } from '../dishes-modal/dishes-modal.page';
+import { Dish } from '../models/dish';
 
 @Component({
   selector: 'app-dishes',
@@ -12,7 +15,19 @@ export class DishesPage implements OnInit {
   filterTerm: string;
   searchQuery: string;
   filteredDishes = [];
-  constructor() {}
+  constructor(public modalController: ModalController) {}
+
+  async presentModal() {
+    const modal = await this.modalController.create({
+      component: DishesModalPage,
+      componentProps: {
+        dish: 'new',
+      },
+      cssClass: 'my-custom-class',
+    });
+    return await modal.present();
+  }
+
   userRecords = [
     {
       id: 1,
